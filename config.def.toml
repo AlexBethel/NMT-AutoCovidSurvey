@@ -1,0 +1,24 @@
+# Configuration for NMT-AutoCovidSurvey.
+
+[auth]
+
+  # Cookie extracted from www.google.com. This is used rather than a
+  # username-password pair to authenticate to the server.
+  cookie = ''
+
+[info]
+
+  # Some personal information requested on the form.
+  name = 'John Smith'
+  phone = '(555) 555-5555'
+
+[status]
+
+  # Set this to `true` if you currently have COVID-19 symptoms. See
+  # https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html
+  # for the current list of symptoms.
+  symptoms = false
+
+  # Set this to `true` if you are on campus, or `false` if you are off
+  # campus.
+  on_campus = false
