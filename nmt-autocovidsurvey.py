@@ -43,7 +43,7 @@ SUBMIT = True
 # Amount of time to wait for Google animations (drop down menus
 # expanding and closing, `Next` button proceeding between pages) to do
 # their thing.
-ANIM_TIME = 0.3
+ANIM_TIME = 0.1
 
 
 # Fills out the COVID-19 screening form.
