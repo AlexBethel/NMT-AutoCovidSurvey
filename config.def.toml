@@ -2,24 +2,9 @@
 
 [auth]
 
-  # Cookie extracted from www.google.com. This is used rather than a
+  # Cookie extracted from docs.google.com. This is used rather than a
   # username-password pair to authenticate to the server.
-  1P_JAR = ''
-  NID = ''
-  SID = ''
-  __Secure-3PSID = ''
-  HSID = ''
-  SSID = ''
-  APISID = ''
-  SAPISID = ''
-  __Secure-3PAPISID = ''
-  SIDCC = ''
-  __Secure-3PSIDCC = ''
-  ANID = ''
-  # FIXME: This is horrendous; you can fill it out by applying
-  # keyboard macros or other processing to an extracted cookie string,
-  # but it would be much better if the program itself could just
-  # process that cookie string into the above form.
+  cookie = ''
 
 [info]
 

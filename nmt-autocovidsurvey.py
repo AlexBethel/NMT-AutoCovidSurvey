@@ -139,7 +139,7 @@ def load_config():
         sys.exit(1)
 
     config_dict = {}
-    config_dict['cookie'] = config_file['auth']
+    config_dict['cookie'] = config_file['auth']['cookie']
     config_dict['name'] = config_file['info']['name']
     config_dict['phone'] = config_file['info']['phone']
     config_dict['symptoms'] = config_file['status']['symptoms']
@@ -203,11 +203,30 @@ def setup_cookie(config, driver):
     # page you actually want to test. Seems kinda clunky to me, but oh
     # well -- it works, and that's what really matters.
     driver.get('https://docs.google.com/invalid')
-    for key in config['cookie']:
+    cookie = parse_cookie(config['cookie'])
+
+    for key in cookie:
         driver.add_cookie({
             'name': key,
-            'value': config['cookie'][key],
+            'value': cookie[key],
         })
+
+
+# Converts a cookie string into a dictionary of key-value pairs.
+# Cookies are inputted in text form as "key1=value1; key2=value2", and
+# they are returned as a Python dictionary of the form { "key1":
+# "value1", "key2": "value2" }.
+def parse_cookie(cookie_str):
+    cookie = {}
+    records = cookie_str.split("; ")
+    for record in records:
+        entries = record.split("=", 1)
+        key = entries[0]
+        value = entries[1]
+
+        cookie[key] = value
+
+    return cookie
 
 
 fill_out_form()
