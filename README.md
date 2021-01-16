@@ -1,5 +1,3 @@
-(This is a draft document; the program doesn't work at all as of yet.)
-
 # NMT-AutoCovidSurvey
 
 This is a small Python script for automatically filling out the NMT
@@ -23,5 +21,6 @@ out all the listed fields with correct information.
 
 ## Usage
 
-Just run `./nmt-autocovidsurvey.py` to automatically fill out the
+Just run `./nmt-autocovidsurvey.py` (or `python ./nmt-autocovidsurvey.py`
+if you prefer or are running Windows) to automatically fill out the
 screening survey with the configured response.
