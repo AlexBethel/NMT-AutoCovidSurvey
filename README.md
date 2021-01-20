@@ -12,9 +12,10 @@ symptoms, do not use this script; instead fill the form out manually.
 
 ## Installation & configuration
 
-This script requires Python (version 2 or 3), as well as the
-`pip` package manager. With those installed, run `pip install -r
-requirements.txt` in the repository to install all other dependencies.
+This script requires Python (version 2 or 3), as well as the `pip`
+package manager, and an installation of the Chromium (or Chrome) web
+browser. With those installed, run `pip install -r requirements.txt` in
+the repository to install all other dependencies.
 
 Copy or rename the default `config.def.toml` to `config.toml`, and fill
 out all the listed fields with correct information.
