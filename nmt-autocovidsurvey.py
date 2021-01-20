@@ -56,6 +56,8 @@ def fill_out_form():
 
     print("Starting the form")
     personal_page(config, driver)
+    if config['on_campus']:
+        symptom_page(config, driver)
     agreement_page(config, driver)
     print("Form done")
 
@@ -81,12 +83,20 @@ def personal_page(config, driver):
 
     time.sleep(ANIM_TIME)
 
-    # Selection of the dropdown element (this one is for "NO", not on
-    # campus).
-    selection_element = driver.find_element_by_xpath(
-        f"//form[@id='{FORM_ID}']/div[2]/div/div[2]/div[3]/div/div/div[2]/"
-        "div/div[2]/div[4]/span"
-    )
+    # Selection of the dropdown element.
+    selection_element = None
+    if config['on_campus']:
+        # "YES", on campus.
+        selection_element = driver.find_element_by_xpath(
+            f"//form[@id='{FORM_ID}']/div[2]/div/div[2]/div[3]/div/div/"
+            "div[2]/div/div[2]/div[3]/span"
+        )
+    else:
+        # "NO", not on campus.
+        selection_element = driver.find_element_by_xpath(
+            f"//form[@id='{FORM_ID}']/div[2]/div/div[2]/div[3]/div/div/"
+            "div[2]/div/div[2]/div[4]/span"
+        )
     selection_element.click()
 
     time.sleep(ANIM_TIME)
@@ -97,6 +107,28 @@ def personal_page(config, driver):
     next_button.click()
     time.sleep(ANIM_TIME)
     print("Personal info page done")
+
+
+# Fills out the symptom page. Currently the only valid response to
+# this is "no, I don't have symptoms".
+def symptom_page(config, driver):
+    print("Filling out symptom page")
+
+    no_element = driver.find_element_by_xpath(
+        "//div[@id='i10']/div[3]/div"
+    )
+
+    no_element.click()
+    time.sleep(ANIM_TIME)
+
+    next_button = driver.find_element_by_xpath(
+        f"//form[@id='{FORM_ID}']/div[2]/div/div[3]/div/div/div[2]/"
+        "span/span"
+    )
+    next_button.click()
+
+    time.sleep(ANIM_TIME)
+    print("Symptom page done")
 
 
 # Fills out the agreement page (the one that confirms you know your
@@ -151,16 +183,6 @@ def load_config():
         print('''This script does not currently support reporting symptoms. \
 For now,
 you'll have to fill out the form manually. The URL is as follows:''')
-        print('')
-        print(FORM_URL)
-        sys.exit(1)
-
-    if config_dict['on_campus']:
-        print('''This script does not currently support on-campus students; \
-support
-will likely be added on or soon after January 18 (when the author
-returns to campus). Until then, you'll have to fill out the form
-manually:''')
         print('')
         print(FORM_URL)
         sys.exit(1)
