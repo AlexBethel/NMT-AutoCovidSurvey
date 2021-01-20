@@ -61,6 +61,8 @@ def fill_out_form():
     agreement_page(config, driver)
     print("Form done")
 
+    driver.quit()
+
 
 # Fills out the personal information page (first page of the screening
 # form).
