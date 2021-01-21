@@ -53,12 +53,16 @@ def fill_out_form():
 
     setup_cookie(config, driver)
     driver.get(FORM_URL)
+    time.sleep(ANIM_TIME)
 
     print("Starting the form")
-    personal_page(config, driver)
-    if config['on_campus']:
-        symptom_page(config, driver)
-    agreement_page(config, driver)
+
+    page = personal_page
+    while page:
+        # Each page handler function returns the handler for the
+        # following page.
+        page = page(config, driver)
+
     print("Form done")
 
     driver.quit()
@@ -110,6 +114,11 @@ def personal_page(config, driver):
     time.sleep(ANIM_TIME)
     print("Personal info page done")
 
+    if config['on_campus']:
+        return symptom_page
+    else:
+        return agreement_page
+
 
 # Fills out the symptom page. Currently the only valid response to
 # this is "no, I don't have symptoms".
@@ -131,6 +140,8 @@ def symptom_page(config, driver):
 
     time.sleep(ANIM_TIME)
     print("Symptom page done")
+
+    return agreement_page
 
 
 # Fills out the agreement page (the one that confirms you know your
@@ -158,6 +169,9 @@ def agreement_page(config, driver):
         print("(Not actually submitting the form because SUBMIT = False)")
 
     print("Agreement page done")
+
+    # No following page
+    return None
 
 
 # Loads the program configuration. Returns a dictionary of
