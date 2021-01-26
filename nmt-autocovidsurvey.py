@@ -46,8 +46,9 @@ SUBMIT = True
 ANIM_TIME = 0.2
 
 
-# Fills out the COVID-19 screening form.
 def fill_out_form():
+    """ Fills out the COVID-19 screening form. """
+
     config = load_config()
     driver = init_driver()
 
@@ -68,9 +69,10 @@ def fill_out_form():
     driver.quit()
 
 
-# Fills out the personal information page (first page of the screening
-# form).
 def personal_page(config, driver):
+    """ Fills out the personal information page (first page of the
+        screening form). """
+
     print("Filling out personal info page")
 
     name_element = driver.find_element_by_xpath(
@@ -120,9 +122,10 @@ def personal_page(config, driver):
         return agreement_page
 
 
-# Fills out the symptom page. Currently the only valid response to
-# this is "no, I don't have symptoms".
 def symptom_page(config, driver):
+    """ Fills out the symptom page. Currently the only valid response
+        to this is "no, I don't have symptoms. """
+
     print("Filling out symptom page")
 
     no_element = driver.find_element_by_xpath(
@@ -144,9 +147,10 @@ def symptom_page(config, driver):
     return agreement_page
 
 
-# Fills out the agreement page (the one that confirms you know your
-# rights and responsibilities).
 def agreement_page(config, driver):
+    """ Fills out the agreement page (the one that confirms you know
+        your rights and responsibilities). """
+
     print("Filling out agreement page")
 
     # I've always kinda wondered what happens if you answer "no" to
@@ -174,9 +178,10 @@ def agreement_page(config, driver):
     return None
 
 
-# Loads the program configuration. Returns a dictionary of
-# configuration parameters.
 def load_config():
+    """ Loads the program configuration. Returns a dictionary of
+        configuration paramters. """
+
     config_file = None
     try:
         config_file = toml.load('config.toml')
@@ -196,8 +201,8 @@ def load_config():
     # Do some quick checks to make sure we support this particular
     # situation.
     if config_dict['symptoms']:
-        print('''This script does not currently support reporting symptoms. \
-For now,
+        print('''\
+This script does not currently support reporting symptoms. For now,
 you'll have to fill out the form manually. The URL is as follows:''')
         print('')
         print(FORM_URL)
@@ -206,11 +211,11 @@ you'll have to fill out the form manually. The URL is as follows:''')
     return config_dict
 
 
-# Sets up a WebDriver object.
 def init_driver():
-    # Use Google Chrome for now. TODO: Switch to Firefox, or better
-    # yet something more lightweight; having bulky closed-source
-    # dependencies to a small program like this is nasty.
+    """ Sets up and returns a WebDriver object. """
+
+    # Use Chromium for now. TODO: Switch to something more
+    # lightweight.
 
     # This code is taken from the backend of the Aternos-On-Discord
     # bot by Makolaos.
@@ -224,9 +229,10 @@ def init_driver():
     return webdriver.Chrome(options=options, executable_path=binary_path)
 
 
-# Re-formats a phone number (written in any format) into a plain digit
-# string.
 def sanitize_phone(phone):
+    """ Re-formats a phone number (written in any format) into a plain
+        digit string. """
+
     return (phone
             .replace('(', '')
             .replace(')', '')
@@ -234,8 +240,9 @@ def sanitize_phone(phone):
             .replace('-', ''))
 
 
-# Sets up the WebDriver cookie for `docs.google.com`.
 def setup_cookie(config, driver):
+    """ Sets up the WebDriver cookie for `docs.google.com'. """
+
     # The officially recommended Selenium way of doing this is to
     # navigate to the 404 page, then write the cookies, then visit the
     # page you actually want to test. Seems kinda clunky to me, but oh
@@ -250,11 +257,12 @@ def setup_cookie(config, driver):
         })
 
 
-# Converts a cookie string into a dictionary of key-value pairs.
-# Cookies are inputted in text form as "key1=value1; key2=value2", and
-# they are returned as a Python dictionary of the form { "key1":
-# "value1", "key2": "value2" }.
 def parse_cookie(cookie_str):
+    """ Converts a cookie string into a dictionary of key-value pairs.
+        Cookies are inputted in text form as "key1=value1;
+        key2=value2", and they are returned as a Python dictionary of
+        the form { "key1": "value1", "key2": "value2" }. """
+
     cookie = {}
     records = cookie_str.split("; ")
     for record in records:
@@ -267,4 +275,5 @@ def parse_cookie(cookie_str):
     return cookie
 
 
-fill_out_form()
+if __name__ == "__main__":
+    fill_out_form()
