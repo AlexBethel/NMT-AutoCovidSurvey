@@ -32,6 +32,7 @@ the basic steps you should follow:
 3. Navigate to the JavaScript Console tab and type in
    "document.cookie" (without the quotes).
 4. Copy and paste the resulting string to the config file.
+
 You may occasionally need to repeat this process as a result of
 authentication tokens expiring (about once a month in general).
 
