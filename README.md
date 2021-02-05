@@ -20,6 +20,21 @@ the repository to install all other dependencies.
 Copy or rename the default `config.def.toml` to `config.toml`, and fill
 out all the listed fields with correct information.
 
+### Generating a Google cookie
+
+Getting the correct cookie value can be a little tricky, but here are
+the basic steps you should follow:
+1. Navigate to https://docs.google.com/, and sign in to the login
+   page.
+2. Press F12 to open the developer tools. (This will work on most
+   major browsers including Firefox, Chrome, Edge, Internet Explorer
+   and Brave, but the precise steps may vary for others.)
+3. Navigate to the JavaScript Console tab and type in
+   "document.cookie" (without the quotes).
+4. Copy and paste the resulting string to the config file.
+You may occasionally need to repeat this process as a result of
+authentication tokens expiring (about once a month in general).
+
 ## Usage
 
 Just run `./nmt-autocovidsurvey.py` (or `python ./nmt-autocovidsurvey.py`
